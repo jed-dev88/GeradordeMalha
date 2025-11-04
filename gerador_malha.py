@@ -675,6 +675,9 @@ def main():
             (df_voos['Orig_Dest'] == 'ALG' ),
             (df_voos['Orig_Dest'] == 'FAO' ),
             (df_voos['Orig_Dest'] == 'TEV' ),
+            (df_voos['Orig_Dest'] == 'EEA' ),
+            (df_voos['Orig_Dest'] == 'USH' ),
+            (df_voos['Orig_Dest'] == 'FAB' ),
 
 
             ]
@@ -689,7 +692,7 @@ def main():
                 ,'D','D','D','D','D','D','D','D','D','D','D','D','D','D','D','I','I','D','I','D','D','D','D','I','D'
                 ,'I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','D','I'
                 ,'I','I','I','I','I','I','I','I','D','I','I','D','I','I','I','D','D','I','I','I','I','I','I','I','I'
-                ,'I','I','I','I','I','D','I','I','I','I','I','I','I','I','I'
+                ,'I','I','I','I','I','D','I','I','I','I','I','I','I','I','I','D','I','I'
 
                 ]
         # Criando a nova columa é usando o np.select com as condições e as listas de argumentos
@@ -909,6 +912,10 @@ def main():
             (df_voos['Orig_Dest'] == 'PTP' ),
             (df_voos['Orig_Dest'] == 'SJU' ),
             (df_voos['Orig_Dest'] == 'MGF' ),
+            (df_voos['Orig_Dest'] == 'EEA' ),
+            (df_voos['Orig_Dest'] == 'USH' ),
+            (df_voos['Orig_Dest'] == 'FAB' ),
+            
         ]
 
         values = [
@@ -1112,7 +1119,11 @@ def main():
             'Basileia',  # BSL
             'Pointe-à-Pitre',  # PTP
             'San Juan',  # SJU
-            'Maringá (PR)'  # MGF
+            'Maringá (PR)',  # MGF
+            'Lajes (PR)', #EEA
+            'Ushuaia (ARG)' #USH
+            'Farnborough (ING)' #FAB
+                
         ]
 
         # Substituir no DataFrame
@@ -1128,4 +1139,5 @@ def main():
         )
 
 if __name__ == "__main__":
+
     main()
