@@ -1121,7 +1121,7 @@ def main():
             'San Juan',  # SJU
             'Maringá (PR)',  # MGF
             'Lajes (PR)', #EEA
-            'Ushuaia (ARG)' #USH
+            'Ushuaia (ARG)', #USH
             'Farnborough (ING)' #FAB
                 
         ]
@@ -1141,3 +1141,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
