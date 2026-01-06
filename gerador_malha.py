@@ -36,7 +36,7 @@ def separador_arr_dep(uploaded_file):
                     slot_op_dupla.append(slot)
 
 
-
+#HSID9208 SID9209 02SEP02SEP 0200000 144733 SSASSA2120 02302SSASSA CC
 
 def desembrandor_op_dupla(slot_op_dupla):
   for i in slot_op_dupla:
@@ -191,6 +191,17 @@ def datas_temporada(temporada,df):
     df['Datas'] = df['Datas'].str.replace('OCT','OCT2025')
 
 
+  if(temporada == "S26"):
+    df['Datas'] = df['Datas'].str.replace('MAR','MAR2026')
+    df['Datas'] = df['Datas'].str.replace('APR','APR2026')
+    df['Datas'] = df['Datas'].str.replace('MAY','MAY2026')
+    df['Datas'] = df['Datas'].str.replace('JUN','JUN2026')
+    df['Datas'] = df['Datas'].str.replace('JUL','JUL2026')
+    df['Datas'] = df['Datas'].str.replace('AUG','AUG2026')
+    df['Datas'] = df['Datas'].str.replace('SEP','SEP2026')
+    df['Datas'] = df['Datas'].str.replace('OCT','OCT2026')
+
+
 def dias_op_V(linha):
     date=pd.to_datetime(linha['data_op'])
     dia_op = date.strftime('%w')
@@ -218,7 +229,7 @@ def separar_info_dep():
 
 def main():
     nome_arquivo_upload = st.file_uploader("Selecione o arquivo SIR no formato .TXT", type=["TXT"])
-    opcao = st.selectbox("Selecione uma opção:", ["W25", "S25"])
+    opcao = st.selectbox("Selecione uma opção:", ["W23","S24","W24","W25", "S25","S26"])
     nome_excel = st.text_input("Digite o nome do arquivo que deseja receber (ex: UDI_W25_20250721.csv)")
 
     if st.button("Executar"):  
@@ -384,7 +395,7 @@ def main():
                 ,'OMI','JetMagic','Hifly','Atlas Air','Air Italia','Total Linhas Aereas','LOT Polish Airlines','Turkish Airlines','Lan Ecuador','Paranair','Levu','Latam Argentina',
                 'American Airlines','United','Avianca El Salvador','South African Airways','Aerolineas Argentinas','Qatar Airways','Air Canada','Air France','Latam Paraguay','Aeromexico',
                 'Boliviana de Aviacion','Aerolineas Argentinas','Avianca Brasil','Royal Air Marroc','Swiss','Latam Airlines','Avianca','British Airways','Iberia','Air China','Sky Airline',
-                'Delta','Ethiopian Airlines','TAAG Angola','Emirates','Centrafrrique Air Express','Taca','Aero','Wammos Air','Voos Teste','Sky Taxi','Total Linhas Aereas','ACE Skyline',
+                'Delta','Ethiopian Airlines','TAAG Angola','Emirates','Centrafrrique Air Express','Taca','Flybondi','Wammos Air','Voos Teste','Sky Taxi','Total Linhas Aereas','ACE Skyline',
                 'JetSmart']
 
         # Criando a nova columa é usando o np.select com as condições e as listas de argumentos
@@ -675,9 +686,6 @@ def main():
             (df_voos['Orig_Dest'] == 'ALG' ),
             (df_voos['Orig_Dest'] == 'FAO' ),
             (df_voos['Orig_Dest'] == 'TEV' ),
-            (df_voos['Orig_Dest'] == 'EEA' ),
-            (df_voos['Orig_Dest'] == 'USH' ),
-            (df_voos['Orig_Dest'] == 'FAB' ),
 
 
             ]
@@ -692,7 +700,7 @@ def main():
                 ,'D','D','D','D','D','D','D','D','D','D','D','D','D','D','D','I','I','D','I','D','D','D','D','I','D'
                 ,'I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','I','D','I'
                 ,'I','I','I','I','I','I','I','I','D','I','I','D','I','I','I','D','D','I','I','I','I','I','I','I','I'
-                ,'I','I','I','I','I','D','I','I','I','I','I','I','I','I','I','D','I','I'
+                ,'I','I','I','I','I','D','I','I','I','I','I','I','I','I','I'
 
                 ]
         # Criando a nova columa é usando o np.select com as condições e as listas de argumentos
@@ -912,10 +920,6 @@ def main():
             (df_voos['Orig_Dest'] == 'PTP' ),
             (df_voos['Orig_Dest'] == 'SJU' ),
             (df_voos['Orig_Dest'] == 'MGF' ),
-            (df_voos['Orig_Dest'] == 'EEA' ),
-            (df_voos['Orig_Dest'] == 'USH' ),
-            (df_voos['Orig_Dest'] == 'FAB' ),
-            
         ]
 
         values = [
@@ -1119,11 +1123,7 @@ def main():
             'Basileia',  # BSL
             'Pointe-à-Pitre',  # PTP
             'San Juan',  # SJU
-            'Maringá (PR)',  # MGF
-            'Lajes (PR)', #EEA
-            'Ushuaia (ARG)', #USH
-            'Farnborough (ING)' #FAB
-                
+            'Maringá (PR)'  # MGF
         ]
 
         # Substituir no DataFrame
@@ -1139,6 +1139,4 @@ def main():
         )
 
 if __name__ == "__main__":
-
     main()
-
