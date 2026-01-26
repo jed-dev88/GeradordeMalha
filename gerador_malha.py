@@ -1127,8 +1127,8 @@ def main():
             'Basileia',  # BSL
             'Pointe-à-Pitre',  # PTP
             'San Juan',  # SJU
-            'Maringá (PR)'  # MGF
-            'Correia Pinto(PR)' #EEA
+            'Maringá (PR)',  # MGF
+            'Correia Pinto(PR)', #EEA
             'Ji Paraná(RO)' #JPR
         ]
 
@@ -1146,4 +1146,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
