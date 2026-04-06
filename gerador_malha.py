@@ -203,15 +203,15 @@ def datas_temporada(temporada,df):
 
 
 def dias_op_V(linha):
-    date=pd.to_datetime(linha['data_op'])
-    dia_op = date.strftime('%w')
-    if dia_op == "0":
-      dia_op = "7"
-    if(linha['Doop'].find(dia_op)>=0):
-        return "manter"
-    else:
+    data = pd.to_datetime(linha['data_op'], errors='coerce')
+
+    if pd.isna(data):
         return "eliminar"
 
+    doop = str(linha['Doop']) if pd.notna(linha['Doop']) else ""
+    dia_op = str(data.dayofweek + 1)   # segunda=1 ... domingo=7
+
+    return "manter" if dia_op in doop else "eliminar"
 
 def separar_info_dep():
   for item in slot_dep:
