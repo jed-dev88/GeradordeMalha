@@ -615,10 +615,26 @@ def build_output_dataframe(slot_arr, slot_dep, temporada):
     df_voos["Cidades"] = df_voos.apply(resolve_city, axis=1)
 
     col_order = [
-        "N_Voo", "Cia", "Tipo_Voo", "Doop", "data_op", "dia", "Mês", "Periodo",
-        "Arr_Dep", "Hora", "bucket", "Assentos", "Equipamento", "Orig_Dest",
-        "Escala", "Direto_Escala", "Zona", "Cidades"
+        "N_Voo",
+        "Doop",
+        "Tipo_Voo",
+        "data_op",
+        "dia",
+        "Assentos",
+        "Equipamento",
+        "Orig_Dest",
+        "Escala",
+        "Hora",
+        "Arr_Dep",
+        "Cia",
+        "bucket",
+        "Periodo",
+        "Mês",
+        "Zona",
+        "Direto_Escala",
+        "Cidades"
     ]
+    
     return df_voos[col_order].sort_values(["data_op", "Hora", "N_Voo"], kind="stable").reset_index(drop=True)
 
 
