@@ -20,6 +20,7 @@ SEASON_MONTH_YEAR = {
     "S25": {"MAR": "MAR2025", "APR": "APR2025", "MAY": "MAY2025", "JUN": "JUN2025", "JUL": "JUL2025", "AUG": "AUG2025", "SEP": "SEP2025", "OCT": "OCT2025"},
     "W25": {"MAR": "MAR2026", "DEC": "DEC2025", "NOV": "NOV2025", "OCT": "OCT2025", "JAN": "JAN2026", "FEB": "FEB2026"},
     "S26": {"MAR": "MAR2026", "APR": "APR2026", "MAY": "MAY2026", "JUN": "JUN2026", "JUL": "JUL2026", "AUG": "AUG2026", "SEP": "SEP2026", "OCT": "OCT2026"},
+    "W26": {"MAR": "MAR2027", "DEC": "DEC2026", "NOV": "NOV2026", "OCT": "OCT2026", "JAN": "JAN2027", "FEB": "FEB2027"},
 }
 
 AIRLINE_PREFIX_MAP = [
@@ -300,6 +301,7 @@ CITY_ITEMS = [
     ("TEV", "Teruel"),
     ("EEA", "Correia Pinto (SC)"),
     ("JPR", "Ji-Paraná (RO)"),
+    ("CWF", "Lake Charles"),
 ]
 
 CITY_MAP = dict(CITY_ITEMS)
@@ -311,7 +313,7 @@ INTERNATIONAL_CODES = {
     "JFK", "EWR", "DFW", "IAH", "YYZ", "JNB", "CDG", "DOH", "CBB", "LHR", "PEK", "ZRH", "ATL", "LAD", "TLV",
     "DXB", "AMS", "BRC", "ADD", "MUC", "MDZ", "BOS", "PUJ", "PDP", "ROS", "COR", "BCN", "LAS", "SBD", "EPA",
     "FDF", "YUL", "LGG", "MPN", "RAK", "MBJ", "AUH", "BQN", "HAV", "ISL", "LOS", "SJO", "DWC", "BSL", "PTP",
-    "SJU", "POS", "BYJ", "BGA", "MLA", "ANF", "WDH", "ALG", "FAO", "TEV", "PUC"
+    "SJU", "POS", "BYJ", "BGA", "MLA", "ANF", "WDH", "ALG", "FAO", "TEV", "PUC", "CWF"
 }
 
 DAY_PT_MAP = {0: "Seg", 1: "Ter", 2: "Qua", 3: "Qui", 4: "Sex", 5: "Sab", 6: "Dom"}
