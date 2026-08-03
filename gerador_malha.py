@@ -643,7 +643,7 @@ def main():
     st.title("Gerador de Arquivo de Malha")
 
     nome_arquivo_upload = st.file_uploader("Selecione o arquivo SIR no formato .TXT", type=["txt", "TXT"])
-    opcao = st.selectbox("Selecione uma opção:", ["W23", "S24", "W24", "W25", "S25", "S26"])
+    opcao = st.selectbox("Selecione uma opção:", ["W23", "S24", "W24", "W25", "S25", "S26", "W26"])
     nome_excel = st.text_input("Digite o nome do arquivo que deseja receber (ex: UDI_W25_20250721.csv)")
 
     if st.button("Executar"):
