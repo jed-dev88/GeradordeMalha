@@ -100,8 +100,10 @@ AIRLINE_PREFIX_MAP = [
     ("JA", "JetSmart"),
     ("TSC", "Air Transat"),
     ("PLS", "Placar Airline"),
-
-    
+    ("W8", "Cargojet"),
+    ("ANS","Andes Lineas Aereas"),
+    ("DM","Arajet"),
+    ("OY","Omni Air International"), 
 ]
 
 CITY_ITEMS = [
