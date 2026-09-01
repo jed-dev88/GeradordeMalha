@@ -111,6 +111,8 @@ AIRLINE_PREFIX_MAP = [
     ("M9", "Motor Sich Airlines"),
     ("5R", "Rutaca Airlines"),
     ("K4", "Kalitta Air"),
+    ("ZT", "Titan Airways"),
+    
 ]
 
 CITY_ITEMS = [
