@@ -101,9 +101,16 @@ AIRLINE_PREFIX_MAP = [
     ("TSC", "Air Transat"),
     ("PLS", "Placar Airline"),
     ("W8", "Cargojet"),
-    ("ANS","Andes Lineas Aereas"),
-    ("DM","Arajet"),
-    ("OY","Omni Air International"), 
+    ("ANS", "Andes Lineas Aereas"),
+    ("DM", "Arajet"),
+    ("OY", "Omni Air International"), 
+    ("2C", "CMA CGM"),
+    ("Z3", "Avion Express Brasil"),
+    ("EB", "Wamos Air"),
+    ("UKL", "Ukraine Air Alliance"),
+    ("M9", "Motor Sich Airlines"),
+    ("5R", "Rutaca Airlines"),
+    ("K4", "Kalitta Air"),
 ]
 
 CITY_ITEMS = [
