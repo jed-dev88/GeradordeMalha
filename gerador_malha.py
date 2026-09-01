@@ -322,7 +322,7 @@ INTERNATIONAL_CODES = {
     "DXB", "AMS", "BRC", "ADD", "MUC", "MDZ", "BOS", "PUJ", "PDP", "ROS", "COR", "BCN", "LAS", "SBD", "EPA",
     "FDF", "YUL", "LGG", "MPN", "RAK", "MBJ", "AUH", "BQN", "HAV", "ISL", "LOS", "SJO", "DWC", "BSL", "PTP",
     "SJU", "POS", "BYJ", "BGA", "MLA", "ANF", "WDH", "ALG", "FAO", "TEV", "PUC", "BRU", "BWI", "YQM", "CCS",
-    "CTG", "AQP", "VLA"
+    "CTG", "AQP", "VLA", "GYY", "SFO", "CHR", "PBM", "PSS", "STN", "LFB", "YHM", "VLN"
 }
 
 DAY_PT_MAP = {0: "Seg", 1: "Ter", 2: "Qua", 3: "Qui", 4: "Sex", 5: "Sab", 6: "Dom"}
