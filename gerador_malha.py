@@ -1,7 +1,7 @@
+import re
 import streamlit as st
 import pandas as pd
 import numpy as np
-import re
 
 st.set_page_config(page_title="Gerador de Arquivo de Malha", layout="wide")
 
@@ -21,7 +21,6 @@ SEASON_MONTH_YEAR = {
     "S25": {"MAR": "MAR2025", "APR": "APR2025", "MAY": "MAY2025", "JUN": "JUN2025", "JUL": "JUL2025", "AUG": "AUG2025", "SEP": "SEP2025", "OCT": "OCT2025"},
     "W25": {"MAR": "MAR2026", "DEC": "DEC2025", "NOV": "NOV2025", "OCT": "OCT2025", "JAN": "JAN2026", "FEB": "FEB2026"},
     "S26": {"MAR": "MAR2026", "APR": "APR2026", "MAY": "MAY2026", "JUN": "JUN2026", "JUL": "JUL2026", "AUG": "AUG2026", "SEP": "SEP2026", "OCT": "OCT2026"},
-    "W26": {"MAR": "MAR2027", "DEC": "DEC2026", "NOV": "NOV2026", "OCT": "OCT2026", "JAN": "JAN2027", "FEB": "FEB2027"},
 }
 
 AIRLINE_PREFIX_MAP = [
@@ -112,7 +111,7 @@ AIRLINE_PREFIX_MAP = [
     ("5R", "Rutaca Airlines"),
     ("K4", "Kalitta Air"),
     ("ZT", "Titan Airways"),
-    
+
 ]
 
 CITY_ITEMS = [
@@ -318,7 +317,24 @@ CITY_ITEMS = [
     ("TEV", "Teruel"),
     ("EEA", "Correia Pinto (SC)"),
     ("JPR", "Ji-Paraná (RO)"),
-    ("SOD", "Sococaba (SP)"),
+    ("CCS", "Caracas"),
+    ("CTG", "Cartagena"),
+    ("VLN", "Valencia (VEN)"),
+    ("AQP", "Arequipa"),
+    ("HSV", "Huntsville"),
+    ("SDQ", "Santo Domingo"),
+    ("YHM", "Hamilton (CAN)"),
+    ("SFO", "San Francisco"),
+    ("LPB", "La Paz"),
+    ("STN", "Londres (Stansted)"),
+    ("PSS", "Posadas"),
+    ("PBM", "Paramaribo"),
+    ("CHR", "Châteauroux"),
+    ("CVG", "Cincinnati"),
+    ("GYY", "Gary/Chicago"),
+    ("YQM", "Moncton"),
+    ("BWI", "Baltimore"),
+    ("SOD", "Sorocaba"),
 ]
 
 CITY_MAP = dict(CITY_ITEMS)
@@ -330,15 +346,11 @@ INTERNATIONAL_CODES = {
     "JFK", "EWR", "DFW", "IAH", "YYZ", "JNB", "CDG", "DOH", "CBB", "LHR", "PEK", "ZRH", "ATL", "LAD", "TLV",
     "DXB", "AMS", "BRC", "ADD", "MUC", "MDZ", "BOS", "PUJ", "PDP", "ROS", "COR", "BCN", "LAS", "SBD", "EPA",
     "FDF", "YUL", "LGG", "MPN", "RAK", "MBJ", "AUH", "BQN", "HAV", "ISL", "LOS", "SJO", "DWC", "BSL", "PTP",
-    "SJU", "POS", "BYJ", "BGA", "MLA", "ANF", "WDH", "ALG", "FAO", "TEV", "PUC", "BRU", "BWI", "YQM", "CCS",
-    "CTG", "AQP", "VLA", "GYY", "SFO", "CHR", "PBM", "PSS", "STN", "LFB", "YHM", "VLN"
+    "SJU", "POS", "BYJ", "BGA", "MLA", "ANF", "WDH", "ALG", "FAO", "TEV", "PUC", "BRU",
+    "CCS", "CTG", "VLN", "AQP", "HSV", "SDQ", "YHM", "SFO", "LPB", "STN", "PSS", "PBM", "CHR", "CVG", "GYY", "YQM", "BWI"
 }
 
 DAY_PT_MAP = {0: "Seg", 1: "Ter", 2: "Qua", 3: "Qui", 4: "Sex", 5: "Sab", 6: "Dom"}
-
-# Token de saída: HHMM + [dígito de pernoite opcional] + ORIG(3) + ESCALA(3)
-# O grupo do pernoite é capturado apenas para ser descartado.
-DEPARTURE_TOKEN_RE = re.compile(r"^(\d{4})(\d?)([A-Z]{3})([A-Z]{3})$")
 
 
 def map_airline(flight_code: str) -> str:
@@ -366,8 +378,19 @@ def split_sir_file(uploaded_file):
         if len(line) <= 6:
             continue
 
+        # Só processa linhas de voo (corpo da mensagem). Cabeçalho (SIR, //LT,
+        # temporada, data, aeroporto) e rodapé não começam com "H" e ficam de fora.
+        if not line.startswith("H"):
+            continue
+
+        # Remove o comentário do coordenador ("/ RA.1535 CA.R05/", "/ RD.2100 CD.R05/",
+        # "/ RA.0605/", etc.) SOMENTE no corpo, antes de contar os tokens. Sem isso, uma
+        # linha de perna única com comentário passa a ter >7 tokens e cai por engano no
+        # bucket de operação dupla, corrompendo as colunas.
+        line = re.sub(r"\s*/.*$", "", line)
+
         parts = line.split()
-        if not parts or not parts[0].startswith("H"):
+        if not parts:
             continue
 
         if len(parts) == 6:
@@ -413,15 +436,10 @@ def format_departures(records):
         row[2] = row[2][0:5] + " " + row[2][5:]
         row[4] = row[4][0:3] + " " + row[4][3:]
 
-        # Token de saída no formato HHMM[+pernoite]ORIGESCALA (ex.: "00351AEPAEP").
-        # O dígito de pernoite (1 a 3) vem logo após o horário e deve ser IGNORADO.
-        token = str(row[5]).replace(" ", "")
-        match = DEPARTURE_TOKEN_RE.match(token)
-        if match:
-            hora, _pernoite, orig, escala = match.groups()  # _pernoite descartado
-            row[5] = f"{hora} {orig} {escala}"
-        # Se não casar com o padrão esperado, mantém o valor original:
-        # o parse_departures tem um fallback que extrai orig/escala pelas pontas.
+        if len(row[5]) == 10:
+            row[5] = row[5][0:4] + " " + "0" + " " + row[5][4:7] + " " + row[5][7:]
+        elif len(row[5]) == 11:
+            row[5] = row[5][0:4] + " " + row[5][4:5] + " " + row[5][5:8] + " " + row[5][8:]
 
         formatted.append(row)
     return formatted
@@ -671,7 +689,7 @@ def main():
     st.title("Gerador de Arquivo de Malha")
 
     nome_arquivo_upload = st.file_uploader("Selecione o arquivo SIR no formato .TXT", type=["txt", "TXT"])
-    opcao = st.selectbox("Selecione uma opção:", ["W23", "S24", "W24", "W25", "S25", "S26", "W26"])
+    opcao = st.selectbox("Selecione uma opção:", ["W23", "S24", "W24", "W25", "S25", "S26"])
     nome_excel = st.text_input("Digite o nome do arquivo que deseja receber (ex: UDI_W25_20250721.csv)")
 
     if st.button("Executar"):
