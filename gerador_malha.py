@@ -98,8 +98,8 @@ AIRLINE_PREFIX_MAP = [
     ("AEC", "ACE Skyline"),
     ("WJ", "JetSmart"),
     ("JA", "JetSmart"),
-    ("TSC", "Air Transat")
-    ("PLS", "Placar Airline")
+    ("TSC", "Air Transat"),
+    ("PLS", "Placar Airline"),
 
     
 ]
