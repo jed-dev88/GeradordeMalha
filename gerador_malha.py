@@ -336,6 +336,7 @@ CITY_ITEMS = [
     ("YQM", "Moncton"),
     ("BWI", "Baltimore"),
     ("SOD", "Sorocaba"),
+    ("SLA", "Salta Martín Miguel"),
 ]
 
 CITY_MAP = dict(CITY_ITEMS)
@@ -348,7 +349,7 @@ INTERNATIONAL_CODES = {
     "DXB", "AMS", "BRC", "ADD", "MUC", "MDZ", "BOS", "PUJ", "PDP", "ROS", "COR", "BCN", "LAS", "SBD", "EPA",
     "FDF", "YUL", "LGG", "MPN", "RAK", "MBJ", "AUH", "BQN", "HAV", "ISL", "LOS", "SJO", "DWC", "BSL", "PTP",
     "SJU", "POS", "BYJ", "BGA", "MLA", "ANF", "WDH", "ALG", "FAO", "TEV", "PUC", "BRU",
-    "CCS", "CTG", "VLN", "AQP", "HSV", "SDQ", "YHM", "SFO", "LPB", "STN", "PSS", "PBM", "CHR", "CVG", "GYY", "YQM", "BWI"
+    "CCS", "CTG", "VLN", "AQP", "HSV", "SDQ", "YHM", "SFO", "LPB", "STN", "PSS", "PBM", "CHR", "CVG", "GYY", "YQM", "BWI","SLA"
 }
 
 DAY_PT_MAP = {0: "Seg", 1: "Ter", 2: "Qua", 3: "Qui", 4: "Sex", 5: "Sab", 6: "Dom"}
