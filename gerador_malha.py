@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import re
 
 st.set_page_config(page_title="Gerador de Arquivo de Malha", layout="wide")
 
@@ -301,8 +302,6 @@ CITY_ITEMS = [
     ("TEV", "Teruel"),
     ("EEA", "Correia Pinto (SC)"),
     ("JPR", "Ji-Paraná (RO)"),
-    ("SDO", "Sorocaba (SP)"),
-    
 ]
 
 CITY_MAP = dict(CITY_ITEMS)
@@ -314,11 +313,15 @@ INTERNATIONAL_CODES = {
     "JFK", "EWR", "DFW", "IAH", "YYZ", "JNB", "CDG", "DOH", "CBB", "LHR", "PEK", "ZRH", "ATL", "LAD", "TLV",
     "DXB", "AMS", "BRC", "ADD", "MUC", "MDZ", "BOS", "PUJ", "PDP", "ROS", "COR", "BCN", "LAS", "SBD", "EPA",
     "FDF", "YUL", "LGG", "MPN", "RAK", "MBJ", "AUH", "BQN", "HAV", "ISL", "LOS", "SJO", "DWC", "BSL", "PTP",
-    "SJU", "POS", "BYJ", "BGA", "MLA", "ANF", "WDH", "ALG", "FAO", "TEV", "PUC", "BRU", "EWR", "STN", "CCS",
-    "CTG", "SDQ", "HSV", "AQP", "SFO", "PBM", "PSS", "CHR", "BWI"
+    "SJU", "POS", "BYJ", "BGA", "MLA", "ANF", "WDH", "ALG", "FAO", "TEV", "PUC", "BRU", "BWI", "YQM", "CCS",
+    "CTG", "AQP", "VLA"
 }
 
 DAY_PT_MAP = {0: "Seg", 1: "Ter", 2: "Qua", 3: "Qui", 4: "Sex", 5: "Sab", 6: "Dom"}
+
+# Token de saída: HHMM + [dígito de pernoite opcional] + ORIG(3) + ESCALA(3)
+# O grupo do pernoite é capturado apenas para ser descartado.
+DEPARTURE_TOKEN_RE = re.compile(r"^(\d{4})(\d?)([A-Z]{3})([A-Z]{3})$")
 
 
 def map_airline(flight_code: str) -> str:
@@ -393,10 +396,15 @@ def format_departures(records):
         row[2] = row[2][0:5] + " " + row[2][5:]
         row[4] = row[4][0:3] + " " + row[4][3:]
 
-        if len(row[5]) == 10:
-            row[5] = row[5][0:4] + " " + "0" + " " + row[5][4:7] + " " + row[5][7:]
-        elif len(row[5]) == 11:
-            row[5] = row[5][0:4] + " " + row[5][4:5] + " " + row[5][5:8] + " " + row[5][8:]
+        # Token de saída no formato HHMM[+pernoite]ORIGESCALA (ex.: "00351AEPAEP").
+        # O dígito de pernoite (1 a 3) vem logo após o horário e deve ser IGNORADO.
+        token = str(row[5]).replace(" ", "")
+        match = DEPARTURE_TOKEN_RE.match(token)
+        if match:
+            hora, _pernoite, orig, escala = match.groups()  # _pernoite descartado
+            row[5] = f"{hora} {orig} {escala}"
+        # Se não casar com o padrão esperado, mantém o valor original:
+        # o parse_departures tem um fallback que extrai orig/escala pelas pontas.
 
         formatted.append(row)
     return formatted
@@ -638,7 +646,7 @@ def build_output_dataframe(slot_arr, slot_dep, temporada):
         "Direto_Escala",
         "Cidades"
     ]
-    
+
     return df_voos[col_order].sort_values(["data_op", "Hora", "N_Voo"], kind="stable").reset_index(drop=True)
 
 
