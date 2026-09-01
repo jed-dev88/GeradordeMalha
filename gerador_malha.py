@@ -307,6 +307,7 @@ CITY_ITEMS = [
     ("TEV", "Teruel"),
     ("EEA", "Correia Pinto (SC)"),
     ("JPR", "Ji-Paraná (RO)"),
+    ("SOD", "Sococaba (SP)"),
 ]
 
 CITY_MAP = dict(CITY_ITEMS)
