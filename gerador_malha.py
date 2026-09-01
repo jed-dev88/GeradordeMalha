@@ -21,6 +21,7 @@ SEASON_MONTH_YEAR = {
     "S25": {"MAR": "MAR2025", "APR": "APR2025", "MAY": "MAY2025", "JUN": "JUN2025", "JUL": "JUL2025", "AUG": "AUG2025", "SEP": "SEP2025", "OCT": "OCT2025"},
     "W25": {"MAR": "MAR2026", "DEC": "DEC2025", "NOV": "NOV2025", "OCT": "OCT2025", "JAN": "JAN2026", "FEB": "FEB2026"},
     "S26": {"MAR": "MAR2026", "APR": "APR2026", "MAY": "MAY2026", "JUN": "JUN2026", "JUL": "JUL2026", "AUG": "AUG2026", "SEP": "SEP2026", "OCT": "OCT2026"},
+    "W26": {"MAR": "MAR2027", "DEC": "DEC2026", "NOV": "NOV2026", "OCT": "OCT2026", "JAN": "JAN2027", "FEB": "FEB2027"},
 }
 
 AIRLINE_PREFIX_MAP = [
@@ -689,7 +690,7 @@ def main():
     st.title("Gerador de Arquivo de Malha")
 
     nome_arquivo_upload = st.file_uploader("Selecione o arquivo SIR no formato .TXT", type=["txt", "TXT"])
-    opcao = st.selectbox("Selecione uma opção:", ["W23", "S24", "W24", "W25", "S25", "S26"])
+    opcao = st.selectbox("Selecione uma opção:", ["W23", "S24", "W24", "W25", "S25", "S26","W26"])
     nome_excel = st.text_input("Digite o nome do arquivo que deseja receber (ex: UDI_W25_20250721.csv)")
 
     if st.button("Executar"):
