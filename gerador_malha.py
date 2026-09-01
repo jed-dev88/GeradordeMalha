@@ -97,6 +97,11 @@ AIRLINE_PREFIX_MAP = [
     ("0T", "Total Linhas Aereas"),
     ("AEC", "ACE Skyline"),
     ("WJ", "JetSmart"),
+    ("JA", "JetSmart"),
+    ("TSC", "Air Transat")
+    ("PLS", "Placar Airline")
+
+    
 ]
 
 CITY_ITEMS = [
